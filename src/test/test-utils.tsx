@@ -2,8 +2,7 @@ import { type RenderOptions, cleanup, render } from '@testing-library/react'
 import { type PropsWithChildren, type ReactElement, Suspense } from 'react'
 import { Provider } from 'react-redux'
 import { afterEach } from 'vitest'
-import type { AppStore, RootState } from '~/app/store'
-import { setupStore } from '~/app/store'
+import { type AppStore, type RootState, setupStore } from '~/app/store'
 
 afterEach(() => {
   cleanup()
@@ -29,7 +28,7 @@ export function renderWithStoreProvider(
 ) {
   const Wrapper = ({ children }: PropsWithChildren) => {
     return (
-      <Suspense fallback={null}>
+      <Suspense>
         <Provider store={store}>
           {children}
         </Provider>

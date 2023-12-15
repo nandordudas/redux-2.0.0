@@ -1,40 +1,47 @@
-import { useState } from 'react'
-
+import { type CSSProperties, type ChangeEventHandler, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '~/app/hooks'
-import {
-  decrement,
-  increment,
-  incrementAsync,
-  incrementByAmount,
-  incrementIfOdd,
-  selectCount,
-} from '~/features/counter/counter.slice'
+import * as counterSlice from '~/features/counter/counter.slice'
 
-export function Counter() {
+interface CounterProps {
+  incrementAmount?: number | undefined
+}
+
+const DEFAULT_INCREMENT_AMOUNT = 2
+
+const counterContainerStyle: CSSProperties = {
+  display: 'grid',
+  gap: '1rem',
+}
+
+export function Counter({
+  incrementAmount: defaultIncrementAmount = DEFAULT_INCREMENT_AMOUNT,
+}: CounterProps) {
   const dispatch = useAppDispatch()
-  const count = useAppSelector(selectCount)
+  const count = useAppSelector(counterSlice.selectCount)
 
-  const [incrementAmount, setIncrementAmount] = useState(2)
+  const [incrementAmount, setIncrementAmount] = useState(defaultIncrementAmount)
 
-  const incrementValue = () => dispatch(increment())
-  const decrementValue = () => dispatch(decrement())
-  const incrementValueByAmount = () => dispatch(incrementByAmount(incrementAmount))
-  const incrementValueByAmountAsync = () => dispatch(incrementAsync(incrementAmount))
-  const incrementValueIfOdd = () => dispatch(incrementIfOdd(incrementAmount))
+  const decrementValue = () => dispatch(counterSlice.decrement())
+  const incrementValue = () => dispatch(counterSlice.increment())
+  const incrementValueByAmount = () => dispatch(counterSlice.incrementByAmount(incrementAmount))
+  const incrementValueByAmountAsync = () => dispatch(counterSlice.incrementAsync(incrementAmount))
+  const incrementValueIfOdd = () => dispatch(counterSlice.incrementIfOdd(incrementAmount))
+
+  const handleChangeIncrementAmount: ChangeEventHandler<HTMLInputElement> = event =>
+    setIncrementAmount(event.target.valueAsNumber)
 
   return (
     <div>
       <h2>Counter</h2>
 
-      <div style={{ display: 'grid', gap: '1rem' }}>
+      <div style={counterContainerStyle}>
         <input
-          value={incrementAmount}
-          onChange={event => setIncrementAmount(event.target.valueAsNumber)}
-          type="number"
-          inputMode="numeric"
-          min="-10"
           max="10"
+          min="-10"
+          onChange={handleChangeIncrementAmount}
           style={{ padding: '0.5rem' }}
+          type="number"
+          value={incrementAmount}
         />
         <button onClick={incrementValue}>
           +
@@ -46,15 +53,19 @@ export function Counter() {
           -
         </button>
         <button onClick={incrementValueByAmount}>
-          Add Amount
+          Add amount
+          {' '}
+          {incrementAmount}
         </button>
         <button onClick={incrementValueByAmountAsync}>
-          Add Async
+          Add async
         </button>
         <button onClick={incrementValueIfOdd}>
-          Add If Odd
+          Add if odd
         </button>
       </div>
     </div>
   )
 }
+
+Counter.DEFAULT_INCREMENT_AMOUNT = DEFAULT_INCREMENT_AMOUNT

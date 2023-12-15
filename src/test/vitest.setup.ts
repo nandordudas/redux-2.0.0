@@ -1,8 +1,10 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
+import type { MockedFunction } from 'vitest'
+
 import '@testing-library/jest-dom/vitest'
 
 interface CustomMatchers<R = unknown> {
-  toEqualActions(divisor: PayloadAction<any>[]): R
+  toEqualActions(actions: PayloadAction<any>[]): R
 }
 
 declare module 'vitest' {
@@ -11,21 +13,13 @@ declare module 'vitest' {
 }
 
 expect.extend({
-  toEqualActions(received: any, expected: PayloadAction[]) {
+  toEqualActions(received: MockedFunction<any>, expected: PayloadAction[]) {
     const receivedActions = received.mock.calls.flat()
     const expectedActions = expected.map(expect.objectContaining)
-    const pass = this.equals(receivedActions, expectedActions)
-
-    if (pass) {
-      return {
-        message: () => `expected ${this.utils.printReceived(receivedActions)} not to equal ${this.utils.printExpected(expectedActions)}`,
-        pass: true,
-      }
-    }
 
     return {
-      message: () => `expected ${this.utils.printReceived(receivedActions)} to equal ${this.utils.printExpected(expectedActions)}`,
-      pass: false,
+      message: () => `the expected actions dom not match \n\n${this.utils.diff(expectedActions, receivedActions)}` ?? '',
+      pass: this.equals(expectedActions, receivedActions),
     }
   },
 })

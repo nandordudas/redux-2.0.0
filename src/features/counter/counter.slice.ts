@@ -8,13 +8,11 @@ export interface CounterState {
   value: number
 }
 
-const initialState: CounterState = {
-  status: 'idle',
-  value: 0,
-}
-
 export const counterSlice = createSliceWithThunks({
-  initialState,
+  initialState: {
+    status: 'idle',
+    value: 0,
+  } as CounterState,
   name: 'counter',
   reducers: ({ asyncThunk, reducer }) => ({
     increment: reducer((state) => {
