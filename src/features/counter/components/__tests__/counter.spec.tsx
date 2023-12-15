@@ -106,8 +106,6 @@ describe('counter component', () => {
 
       vi.spyOn(counterApi, 'fetchCount').mockRejectedValueOnce(new Error('mock error'))
 
-      // expect(() => counterApi.fetchCount()).rejects.toThrowError('mock error')
-
       const incrementAsyncButton = await screen.findByRole('button', { name: /add async/i })
 
       fireEvent.click(incrementAsyncButton)
