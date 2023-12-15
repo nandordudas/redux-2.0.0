@@ -18,7 +18,7 @@ expect.extend({
     const expectedActions = expected.map(expect.objectContaining)
 
     return {
-      message: () => `the expected actions dom not match \n\n${this.utils.diff(expectedActions, receivedActions)}` ?? '',
+      message: () => `the expected actions do not match \n\n${this.utils.diff(expectedActions, receivedActions)}` ?? '',
       pass: this.equals(expectedActions, receivedActions),
     }
   },
