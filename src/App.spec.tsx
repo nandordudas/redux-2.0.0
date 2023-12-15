@@ -1,7 +1,7 @@
 import { App } from './App'
 import { renderWithStoreProvider } from './test/test-utils'
 
-describe('app', () => {
+describe('app component', () => {
   it('should render properly', () => {
     const { container } = renderWithStoreProvider(<App />)
 
