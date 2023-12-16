@@ -4,11 +4,22 @@ import { Provider } from 'react-redux'
 
 import './index.css'
 
-import { App } from './App'
+import { App } from './app'
 import { store } from './app/store'
 import { assert, isHTMLElement } from './utils'
 
-function render() {
+async function enableMocking() {
+  if (import.meta.env.MODE !== 'development')
+    return
+
+  const { worker } = await import('./mocks/browser')
+
+  return worker.start()
+}
+
+async function render() {
+  await enableMocking()
+
   const container = document.getElementById('root')
 
   assert(isHTMLElement<HTMLDivElement>(container), 'Root container not found')

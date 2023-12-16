@@ -9,8 +9,8 @@
     "dev": "vite",
     "lint": "eslint . --cache --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "vitest",
-    "test:ui": "pnpm run test --ui",
+    "test:e2e": "npx playwright test",
+    "test:unit": "vitest",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.4.6",
+    "@playwright/test": "^1.40.1",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.5.1",
@@ -40,10 +41,15 @@
     "eslint-ts-patch": "8.55.0-1",
     "jsdom": "^23.0.1",
     "lint-staged": "^15.2.0",
+    "msw": "^2.0.11",
+    "playwright": "^1.40.1",
     "simple-git-hooks": "^2.9.0",
     "typescript": "^5.3.3",
     "vite": "^5.0.9",
     "vitest": "^1.0.4"
+  },
+  "msw": {
+    "workerDirectory": "public"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"

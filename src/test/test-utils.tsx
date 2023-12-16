@@ -1,4 +1,4 @@
-import { type RenderOptions, cleanup, render } from '@testing-library/react'
+import { type RenderOptions, cleanup, render, screen, waitForElementToBeRemoved } from '@testing-library/react'
 import { type PropsWithChildren, type ReactElement, Suspense } from 'react'
 import { Provider } from 'react-redux'
 import { afterEach } from 'vitest'
@@ -7,11 +7,6 @@ import { type AppStore, type RootState, setupStore } from '~/app/store'
 afterEach(() => {
   cleanup()
 })
-
-// eslint-disable-next-line react-refresh/only-export-components
-export * from '@testing-library/react'
-
-export { default as userEvent } from '@testing-library/user-event'
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: Partial<RootState>
@@ -28,7 +23,7 @@ export function renderWithStoreProvider(
 ) {
   const Wrapper = ({ children }: PropsWithChildren) => {
     return (
-      <Suspense>
+      <Suspense fallback={null}>
         <Provider store={store}>
           {children}
         </Provider>
@@ -46,3 +41,13 @@ export function renderWithStoreProvider(
     ...rtl,
   }
 }
+
+export function waitForLoadingToFinish() {
+  return waitForElementToBeRemoved(() => {
+    return [...screen.queryAllByTestId(/loading/i), ...screen.queryAllByText(/loading/i)]
+  }, { timeout: 4_000 })
+}
+
+// eslint-disable-next-line react-refresh/only-export-components
+export * from '@testing-library/react'
+export { default as userEvent } from '@testing-library/user-event'

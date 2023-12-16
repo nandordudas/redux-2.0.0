@@ -36,6 +36,7 @@ export function Counter({
 
       <div style={counterContainerStyle}>
         <input
+          aria-label="Set increment amount"
           max="10"
           min="-10"
           onChange={handleChangeIncrementAmount}
@@ -43,13 +44,13 @@ export function Counter({
           type="number"
           value={incrementAmount}
         />
-        <button onClick={incrementValue}>
+        <button onClick={incrementValue} aria-label="Increment value">
           +
         </button>
         <span data-testid="count">
           {count}
         </span>
-        <button onClick={decrementValue}>
+        <button onClick={decrementValue} aria-label="Decrement value">
           -
         </button>
         <button onClick={incrementValueByAmount}>
@@ -68,4 +69,6 @@ export function Counter({
   )
 }
 
-Counter.DEFAULT_INCREMENT_AMOUNT = DEFAULT_INCREMENT_AMOUNT
+Counter.defaults = {
+  incrementAmount: DEFAULT_INCREMENT_AMOUNT,
+} as const

@@ -9,7 +9,6 @@ export default defineConfig({
     },
   },
   test: {
-    environment: 'jsdom',
     coverage: {
       all: true,
       exclude: [
@@ -20,13 +19,14 @@ export default defineConfig({
         '**/__mocks__/**/*',
       ],
     },
+    environment: 'jsdom',
     globals: true,
     mockReset: true,
-    reporters: 'verbose',
-    setupFiles: './src/test/vitest.setup',
     onConsoleLog(_log, type) {
       if (type === 'stderr')
         return false
     },
+    reporters: 'verbose',
+    setupFiles: './src/test/vitest.setup',
   },
 })

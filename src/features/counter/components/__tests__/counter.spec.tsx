@@ -62,7 +62,7 @@ describe('counter component', () => {
 
       const count = selectCount(store.getState())
 
-      expect(count).toBe(Counter.DEFAULT_INCREMENT_AMOUNT)
+      expect(count).toBe(Counter.defaults.incrementAmount)
       expect(Number(countContainer.textContent)).toBe(count)
     })
 

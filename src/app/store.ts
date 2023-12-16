@@ -1,8 +1,11 @@
 import { type Action, type ThunkAction, configureStore } from '@reduxjs/toolkit'
+
 import { reducer } from './reducer'
+import { postApi } from './services/post'
 
 export function setupStore(preloadedState: Partial<RootState> = {}) {
   const store = configureStore({
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(postApi.middleware),
     preloadedState,
     reducer,
   })

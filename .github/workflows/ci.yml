@@ -78,4 +78,4 @@ jobs:
         run: pnpm run build
 
       - name: Test
-        run: pnpm run test --coverage --pool forks --poolOptions.forks.isolate false
+        run: pnpm run test:unit --coverage --pool forks --poolOptions.forks.isolate false

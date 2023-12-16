@@ -1,4 +1,5 @@
 import type { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+
 import type { AppDispatch, RootState } from '~/app/store'
 
 const mockUseDispatch = vi.fn<Parameters<typeof useDispatch>, AppDispatch>()

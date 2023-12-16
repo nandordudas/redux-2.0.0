@@ -1,7 +1,11 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { MockedFunction } from 'vitest'
 
+import { useMockServer } from '~/mocks/mock-server'
+
 import '@testing-library/jest-dom/vitest'
+
+useMockServer()
 
 interface CustomMatchers<R = unknown> {
   toEqualActions(actions: PayloadAction<any>[]): R

@@ -13,6 +13,8 @@ dist-ssr
 *.local
 coverage
 .eslintcache
+*.pem
+mockServiceWorker.js
 
 # Editor directories and files
 .vscode/*

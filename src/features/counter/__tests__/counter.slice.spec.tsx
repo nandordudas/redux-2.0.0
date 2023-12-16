@@ -24,7 +24,7 @@ describe('counter slice', () => {
     // 3. Act dispatching the actions
     const expectedActions = [
       increment(),
-      incrementIfOdd(Counter.DEFAULT_INCREMENT_AMOUNT),
+      incrementIfOdd(Counter.defaults.incrementAmount),
     ] satisfies PayloadAction<any>[]
 
     // 4. Assert dispatch was called with the correct actions
