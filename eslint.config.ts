@@ -3,10 +3,11 @@ import antfu from '@antfu/eslint-config'
 export default antfu(
   {
     formatters: true,
+    ignores: ['**/mockServiceWorker.js'],
     react: true,
   },
   {
-    files: ['**/*.ts'],
+    files: ['**/*.ts', '**/*.tsx'],
     rules: {
       'complexity': ['error', 5],
       'import/order': ['error', {

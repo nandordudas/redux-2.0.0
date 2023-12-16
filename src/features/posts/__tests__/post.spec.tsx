@@ -1,5 +1,5 @@
-import { renderWithStoreProvider, screen, waitForLoadingToFinish } from '~/test/test-utils'
 import { Post } from '~/features/posts/components/post'
+import { renderWithStoreProvider, screen, waitForLoadingToFinish } from '~/test/test-utils'
 
 describe('post component', () => {
   it('should render properly', async () => {

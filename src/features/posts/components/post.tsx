@@ -1,7 +1,6 @@
 import { useGetPostQuery } from '~/app/services/post'
-import type { Entity } from '~/types'
 
-interface PostProps extends Entity {
+interface PostProps extends Entities.Entity {
   id: number
 }
 

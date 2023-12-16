@@ -1,10 +1,12 @@
-import { App } from './app'
-import { renderWithStoreProvider } from './test/test-utils'
+import { App } from '~/app'
+import { renderWithStoreProvider, screen } from '~/test/test-utils'
 
 describe('app component', () => {
   it('should render properly', async () => {
-    const { container } = renderWithStoreProvider(<App />)
+    renderWithStoreProvider(<App />)
 
-    expect(container.textContent).toContain('Counter')
+    const container = screen.getByText(/counter/i)
+
+    expect(container).toBeInTheDocument()
   })
 })

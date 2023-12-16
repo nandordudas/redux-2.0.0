@@ -1,20 +1,23 @@
 import { createSliceWithThunks } from '~/app/utils'
+import { fetchCount } from '~/features/counter/counter.api'
 import type { LoadingState } from '~/types'
 import { isOdd } from '~/utils'
 
-import { fetchCount } from './counter.api'
-
+// 1. Define a type for the slice state
 export interface CounterState {
   status: LoadingState
   value: number
 }
 
 export const counterSlice = createSliceWithThunks({
+  // 2. Define the initial state using that type
   initialState: {
     status: 'idle',
     value: 0,
   } as CounterState,
+  // 3. Define reducers name, it can be used as counterSlice.name
   name: 'counter',
+  // 4. Define reducers and thunks for async actions
   reducers: ({ asyncThunk, reducer }) => ({
     decrement: reducer((state) => {
       state.value += -1
@@ -36,13 +39,8 @@ export const counterSlice = createSliceWithThunks({
         pending: (state) => {
           state.status = 'loading'
         },
-        rejected: (state, action) => {
-          state.status = 'failed'
-
-          console.error(action.payload ?? action.error)
-        },
-        settled: (state) => {
-          state.status = 'idle'
+        rejected: (state) => {
+          state.status = 'error'
         },
       },
     ),
@@ -56,11 +54,13 @@ export const counterSlice = createSliceWithThunks({
         state.value += action.payload
     }),
   }),
+  // 5. Define selectors
   selectors: {
     selectCount: state => state.value,
   },
 })
 
+// 6. Export actions
 export const {
   decrement,
   increment,
@@ -69,6 +69,7 @@ export const {
   incrementIfOdd,
 } = counterSlice.actions
 
+// 7. Export selectors
 export const {
   selectCount,
 } = counterSlice.selectors

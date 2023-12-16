@@ -1,12 +1,10 @@
 import { type RenderOptions, cleanup, render, screen, waitForElementToBeRemoved } from '@testing-library/react'
 import { type PropsWithChildren, type ReactElement, Suspense } from 'react'
 import { Provider } from 'react-redux'
-import { afterEach } from 'vitest'
+
 import { type AppStore, type RootState, setupStore } from '~/app/store'
 
-afterEach(() => {
-  cleanup()
-})
+afterEach(() => cleanup())
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: Partial<RootState>
@@ -42,10 +40,13 @@ export function renderWithStoreProvider(
   }
 }
 
+const LOADING_MATCHER = /loading/i
+
 export function waitForLoadingToFinish() {
-  return waitForElementToBeRemoved(() => {
-    return [...screen.queryAllByTestId(/loading/i), ...screen.queryAllByText(/loading/i)]
-  }, { timeout: 4_000 })
+  return waitForElementToBeRemoved(() => [
+    ...screen.queryAllByTestId(LOADING_MATCHER),
+    ...screen.queryAllByText(LOADING_MATCHER),
+  ], { timeout: 4_000 })
 }
 
 // eslint-disable-next-line react-refresh/only-export-components

@@ -1,4 +1,5 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
+
 import { useAppDispatch } from '~/app/hooks'
 import { Counter } from '~/features/counter/components/counter'
 import { decrement, increment, incrementIfOdd } from '~/features/counter/counter.slice'
@@ -14,8 +15,8 @@ describe('counter slice', () => {
   it('should increment the counter', async () => {
     renderWithStoreProvider(<Counter />)
 
-    const decrementButton = await screen.findByRole('button', { name: /-/i })
-    const incrementButton = await screen.findByRole('button', { name: /\+/i })
+    const decrementButton = await screen.findByRole('button', { name: /decrement value/i })
+    const incrementButton = await screen.findByRole('button', { name: /increment value/i })
     const incrementIfOddButton = await screen.findByRole('button', { name: /add if odd/i })
 
     fireEvent.click(incrementButton)

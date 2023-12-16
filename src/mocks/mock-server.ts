@@ -1,6 +1,6 @@
 import { setupServer } from 'msw/node'
 
-import { handlers, state } from './handlers'
+import { handlers, state } from '~/mocks/handlers'
 
 export function mockServer() {
   const server = setupServer(...handlers)

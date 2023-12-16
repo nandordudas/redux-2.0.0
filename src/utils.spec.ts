@@ -1,4 +1,4 @@
-import { assert, isHTMLElement, isOdd, raise } from './utils'
+import { assert, isHTMLElement, isOdd, raise } from '~/utils'
 
 describe('utils', () => {
   describe('assert', () => {

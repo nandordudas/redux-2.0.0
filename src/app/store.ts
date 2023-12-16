@@ -1,7 +1,7 @@
 import { type Action, type ThunkAction, configureStore } from '@reduxjs/toolkit'
 
-import { reducer } from './reducer'
-import { postApi } from './services/post'
+import { reducer } from '~/app/reducer'
+import { postApi } from '~/app/services/post'
 
 export function setupStore(preloadedState: Partial<RootState> = {}) {
   const store = configureStore({

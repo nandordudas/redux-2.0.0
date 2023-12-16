@@ -1,16 +1,14 @@
 import { createEntityAdapter } from '@reduxjs/toolkit'
 import { HttpResponse, delay, http } from 'msw'
 
-import type { Post } from '~/types'
-
-const adapter = createEntityAdapter<Post>()
+const adapter = createEntityAdapter<Entities.Post>()
 
 // eslint-disable-next-line import/no-mutable-exports
 let state = adapter.getInitialState()
 
 state = adapter.setAll(state, [
-  { fetched_at: new Date().toUTCString(), id: 1, name: 'A sample post' },
-  { fetched_at: new Date().toUTCString(), id: 2, name: 'A post about rtk-query' },
+  { fetchedAt: new Date().toUTCString(), id: 1, name: 'A sample post' },
+  { fetchedAt: new Date().toUTCString(), id: 2, name: 'A post about rtk-query' },
 ])
 
 export { state }
@@ -21,7 +19,7 @@ export const handlers = [
     const id = Number.parseInt(idParam, 10)
 
     state = adapter.updateOne(state, {
-      changes: { fetched_at: new Date().toUTCString() },
+      changes: { fetchedAt: new Date().toUTCString() },
       id,
     })
 

@@ -1,8 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit'
 
+import { postApi } from '~/app/services/post'
 import { counterSlice } from '~/features/counter/counter.slice'
-
-import { postApi } from './services/post'
 
 export const reducer = combineReducers({
   [counterSlice.name]: counterSlice.reducer,
